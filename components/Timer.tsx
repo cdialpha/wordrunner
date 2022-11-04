@@ -1,19 +1,23 @@
 import React, { useEffect, useState } from "react";
 import { Alert, Modal, StyleSheet, Text, Pressable, View } from "react-native";
 
-const Timer = () => {
-  const [ms, setMs] = useState(0);
+type gameTimerProps = {
+  gameTime: number;
+  setGameTime: React.Dispatch<React.SetStateAction<number>>;
+};
+
+const Timer = ({ gameTime, setGameTime }: gameTimerProps) => {
   let gameTimerId;
   const interval: number = 1000;
 
   useEffect(() => {
     gameTimerId = setInterval(() => {
-      setMs((time: number) => time + 1);
+      setGameTime((time: number) => time + 1);
     }, interval);
   }, []);
   return (
     <View style={styles.score}>
-      <Text> Score: {ms} </Text>
+      <Text> Score: {gameTime} </Text>
     </View>
   );
 };

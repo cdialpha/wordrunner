@@ -6,7 +6,7 @@ import Timer from "./components/Timer";
 
 export default function App() {
   const [modalVisible, setModalVisible] = useState(true);
-
+  const [ms, setMs] = useState(0);
   return (
     <View style={styles.centeredView}>
       <StartModal
@@ -15,8 +15,8 @@ export default function App() {
       />
       {modalVisible ? null : (
         <>
-          <Timer />
-          <Gameboard />
+          <Timer gameTime={ms} setGameTime={setMs} />
+          <Gameboard gameTime={ms} />
         </>
       )}
     </View>

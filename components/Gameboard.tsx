@@ -1,23 +1,44 @@
 import React, { useEffect, useState } from "react";
 import { StyleSheet, Text, Pressable, View, Dimensions } from "react-native";
+import Column from "./Column";
 
-const verticalNum = 15;
+const vertCells = 10;
 const horizontalNum = 10;
-
-let vert: number[];
-(vert = []).length = horizontalNum;
-vert.fill(0);
-
-const screenWidth = Dimensions.get("screen").width;
-const screenHeight = Dimensions.get("screen").height;
+const screenWidth = Dimensions.get("screen").width; // Pixel 4 = 411.42
+const screenHeight = Dimensions.get("screen").height; // Pixel 4 = 914
 const squarewidth = screenWidth / 10;
 
-const Gameboard = () => {
+type GameboardProps = {
+  gameTime: number;
+};
+type colProps = {
+  html: HTMLElement;
+  xpos: number;
+};
+
+const Gameboard = ({ gameTime }: GameboardProps) => {
+  let initColumns: colProps[] = [];
+  const [columns, setColumns] = useState(initColumns);
+
+  useEffect(() => {
+    gameTime % 10 == 0 ? handleAddColumn() : null;
+  }, [gameTime]);
+
+  const column = <Column cells={vertCells} len={squarewidth} />;
+
+  const handleAddColumn = () => {
+    console.log("add col!");
+    const newCol: colProps = {
+      html: column,
+      xpos: 411,
+    };
+    setColumns((prevState) => prevState.push(newCol));
+    console.log(columns);
+  };
+
   return (
     <View>
-      <View>
-        <Column />
-      </View>
+      <View></View>
     </View>
   );
 };
@@ -60,3 +81,7 @@ export default Gameboard;
 // const grid = Boxes(horizontalNum);
 //
 // returns an array of Views....
+
+// (initColsXPos = []).length = horizontalNum;
+// initColsXPos.fill(0);
+// console.log(initColsXPos);
